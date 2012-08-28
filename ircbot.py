@@ -41,7 +41,7 @@ class SpewBotFactory(protocol.ClientFactory):
     protocol = SpewBot
     messages = []
 
-    def __init__(self, channel, nickname='YourMomDotCom', serverpass=None):
+    def __init__(self, channel, nickname='SpewBot', serverpass=None):
         self.channel = channel
         self.nickname = nickname
         self.password = serverpass
