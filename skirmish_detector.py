@@ -39,6 +39,8 @@ def detect():
     timer = 0
     state = "PEACE"
     while True:
+        # TODO: At certain times of day, skip even listening.
+
         # Read raw microphone data
         rawsamps = stream.read(1024*50) # 1024*50 is about one second of data.
 
