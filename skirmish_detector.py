@@ -18,10 +18,12 @@ def message(string):
     print string
     HOST, PORT = 'localhost', 4321
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    sock.connect((HOST, PORT))
-    sock.send(string)
+    try:
+        sock.connect((HOST, PORT))
+        sock.send(string)
+    except socket.error, exc:
+        print "ERROR:", exc
     sock.close()
-
 
 def detect():
     p = pyaudio.PyAudio()
