@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+'''An IRC bot that listens on TCP port 4321 for messages delimited by \n.
+Messages sent to it will be proxied through to IRC.'''
 from twisted.words.protocols import irc
 from twisted.internet import protocol, reactor
 

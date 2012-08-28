@@ -1,4 +1,8 @@
 #!/usr/bin/env python2.5 # Python2.5 because that's what PyAudio binaries for osx target...
+'''Detects bouts of loudness that are indicative of a nerf skirmish.
+When it gets sufficiently loud, it announces it, and then cools off when it gets
+quiet again. Eventually it goes back into peace, which it also announces.
+If someone fires while it's cooling down, it resets and returns to skirmish mode.'''
 import numpy
 import analyse
 import pyaudio

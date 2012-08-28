@@ -1,3 +1,4 @@
+'''Settings for the IRC bot.'''
 HOST="ircserverhost"
 PORT=6667
 PASSWORD='ircserverpassword'
