@@ -9,7 +9,8 @@ import pyaudio
 import socket
 
 SECONDS_OF_PEACE = 30
-MAXIMUM_LOUDNESS = 6
+MAXIMUM_LOUDNESS = 10
+SECONDS_OF_WAR = 5
 
 def message(string):
     '''Send a message to a twisted server listening on port 4321.
@@ -38,6 +39,7 @@ def detect():
 
     timer = 0
     state = "PEACE"
+    doomclock = SECONDS_OF_WAR
     while True:
         # TODO: At certain times of day, skip even listening.
 
@@ -50,14 +52,23 @@ def detect():
         # Get the loudness.
         loudness = abs(analyse.loudness(samps))
 
+        if loudness < MAXIMUM_LOUDNESS:
+            print "Loudness over threshold: %.2f" % loudness
+
         # If it gets loud, and we were previously at peace or almost peace, restart the countdown.
         if loudness < MAXIMUM_LOUDNESS:
-            if state == "PEACE":
-                message("A skirmish has broken out!")
-            elif state == "TENSIONS":
-                message("Someone fanned the flames of war!")
-            timer = SECONDS_OF_PEACE
-            state = "SKIRMISH"
+            if doomclock > 0:
+                # Tick down the time til war
+                doomclock -= 1
+            else:
+                # WAR! Reset the doom clock.
+                doomclock = SECONDS_OF_WAR
+                if state == "PEACE":
+                    message("A skirmish has broken out!")
+                elif state == "TENSIONS":
+                    message("Someone fanned the flames of war!")
+                timer = SECONDS_OF_PEACE
+                state = "SKIRMISH"
 
         # When it's quiet and we were almost at peace or at war, tick down the countdown.
         if loudness > MAXIMUM_LOUDNESS and state in ("TENSIONS", "SKIRMISH"):
