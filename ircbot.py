@@ -6,6 +6,21 @@ from twisted.internet import protocol, reactor
 
 from settings import *
 
+def message(string):
+    '''Send a message to a twisted server listening on port 4321.
+    It expects multiple messages to be separated with "\n".
+    '''
+    import socket
+    print string
+    host, port = 'localhost', 4321
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        sock.connect((host, port))
+        sock.send(string)
+    except socket.error, exc:
+        print "ERROR:", exc
+    sock.close()
+
 class SpewBot(irc.IRCClient):
     def _get_nickname(self):
         return self.factory.nickname

@@ -6,25 +6,12 @@ If someone fires while it's cooling down, it resets and returns to skirmish mode
 import numpy
 import analyse
 import pyaudio
-import socket
+
+from ircbot import message
 
 SECONDS_OF_PEACE = 30
 MAXIMUM_LOUDNESS = 10
 SECONDS_OF_WAR = 5
-
-def message(string):
-    '''Send a message to a twisted server listening on port 4321.
-    It expects multiple messages to be separated with "\n".
-    '''
-    print string
-    HOST, PORT = 'localhost', 4321
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    try:
-        sock.connect((HOST, PORT))
-        sock.send(string)
-    except socket.error, exc:
-        print "ERROR:", exc
-    sock.close()
 
 def detect():
     p = pyaudio.PyAudio()
