@@ -72,6 +72,9 @@ def detect():
 
         # When it's quiet and we were almost at peace or at war, tick down the countdown.
         if loudness > MAXIMUM_LOUDNESS and state in ("TENSIONS", "SKIRMISH"):
+            if doomclock < SECONDS_OF_WAR:
+                # Cool down the doomclock.
+                doomclock += 1
             if state == "TENSIONS":
                 timer -= 1
             state = "TENSIONS"
